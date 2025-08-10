@@ -11,7 +11,7 @@ Install kubectl steps on windows
 
 Using curl:
 If you have curl installed, use this command:
-curl.exe -LO "https://dl.k8s.io/release/v1.33.3/bin/windows/amd64/kubectl.exe"
+curl.exe -LO "https://dl.k8s.io/release/v1.33.3/bin/windows/amd64/kubectl.exe" 
 
 
 Note:
