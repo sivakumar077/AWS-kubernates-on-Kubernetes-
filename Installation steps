@@ -1,0 +1,99 @@
+Aws Kubernetes for windows
+
+Install kubectl steps on windows
+Install eksctl
+Install aws cli
+Create aws access key
+Login with access key on aws cli
+
+
+Install kubectl steps on windows
+
+Using curl:
+If you have curl installed, use this command:
+curl.exe -LO "https://dl.k8s.io/release/v1.33.3/bin/windows/amd64/kubectl.exe"
+
+
+Note:
+To find out the latest stable version (for example, for scripting), take a look at https://dl.k8s.io/release/stable.txt.
+Validate the binary (optional)
+Download the kubectl checksum file:
+curl.exe -LO "https://dl.k8s.io/v1.33.0/bin/windows/amd64/kubectl.exe.sha256"
+
+
+Validate the kubectl binary against the checksum file:
+Using Command Prompt to manually compare CertUtil's output to the checksum file downloaded:
+CertUtil -hashfile kubectl.exe SHA256
+
+
+type kubectl.exe.sha256
+
+
+Using PowerShell to automate the verification using the -eq operator to get a True or False result:
+$(Get-FileHash -Algorithm SHA256 .\kubectl.exe).Hash -eq $(Get-Content .\kubectl.exe.sha256)
+
+
+Append or prepend the kubectl binary folder to your PATH environment variable.
+Test to ensure the version of kubectl is the same as downloaded:
+kubectl version --client
+
+
+Install eksctl steps on windows
+Manual Download (Intel/AMD 64-bit)
+Download the binary
+ Visit:
+ https://github.com/eksctl-io/eksctl/releases/latest
+
+ Download the file:
+ eksctl_Windows_amd64.zip (This is for Intel/AMD 64-bit processors).
+
+
+Extract it
+
+
+Unzip the file (you’ll get eksctl.exe).
+
+
+Move to a permanent location
+
+
+Example: C:\eksctl\eksctl.exe
+
+
+Add to PATH
+
+
+Search "Edit the system environment variables"
+
+
+Click Environment Variables
+
+
+Under System variables, find Path, click Edit, New, and add:
+
+ makefile
+CopyEdit
+C:\eksctl
+
+Click OK to save.
+
+
+5. Verify installation
+ Open a new PowerShell and run:
+
+ powershell
+CopyEdit
+eksctl version
+
+
+✅ Security Tip (ties to your earlier checksum/signature question):
+ When you download eksctl, also download the .sha256 checksum file from the same release page.
+Optionally, verify the checksum:
+Download the checksum file: latest
+
+ Run in PowerShell:
+powershell
+CopyEdit
+Get-FileHash eksctl.exe -Algorithm SHA256
+
+Compare the hash with the official one to ensure it’s not tampered with.
