@@ -6,13 +6,11 @@ Install aws cli
 Create aws access key
 Login with access key on aws cli
 
-
-Install kubectl steps on windows
+*******Install kubectl steps on windows**************
 
 Using curl:
 If you have curl installed, use this command:
 curl.exe -LO "https://dl.k8s.io/release/v1.33.3/bin/windows/amd64/kubectl.exe" 
-
 
 Note:
 To find out the latest stable version (for example, for scripting), take a look at https://dl.k8s.io/release/stable.txt.
@@ -20,14 +18,11 @@ Validate the binary (optional)
 Download the kubectl checksum file:
 curl.exe -LO "https://dl.k8s.io/v1.33.0/bin/windows/amd64/kubectl.exe.sha256"
 
-
 Validate the kubectl binary against the checksum file:
 Using Command Prompt to manually compare CertUtil's output to the checksum file downloaded:
 CertUtil -hashfile kubectl.exe SHA256
 
-
 type kubectl.exe.sha256
-
 
 Using PowerShell to automate the verification using the -eq operator to get a True or False result:
 $(Get-FileHash -Algorithm SHA256 .\kubectl.exe).Hash -eq $(Get-Content .\kubectl.exe.sha256)
@@ -36,7 +31,6 @@ $(Get-FileHash -Algorithm SHA256 .\kubectl.exe).Hash -eq $(Get-Content .\kubectl
 Append or prepend the kubectl binary folder to your PATH environment variable.
 Test to ensure the version of kubectl is the same as downloaded:
 kubectl version --client
-
 
 Install eksctl steps on windows
 Manual Download (Intel/AMD 64-bit)
@@ -47,9 +41,7 @@ Download the binary
  Download the file:
  eksctl_Windows_amd64.zip (This is for Intel/AMD 64-bit processors).
 
-
 Extract it
-
 
 Unzip the file (you’ll get eksctl.exe).
 
@@ -119,11 +111,57 @@ eksctl create iamserviceaccount --cluster=demo-cluster --namespace=kube-system -
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=demo-cluster --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller --set region=us-east-1 --set vpcId=vpc-09146e3bda04ec0f8
 
 
+
+************Install helm**************
+
+Option B – manual download
+
+Go to the official Helm GitHub releases page:
+https://github.com/helm/helm/releases
+
+Download the latest Windows amd64 .zip file.
+
+Extract it — you’ll get a file named helm.exe.
+
+Move helm.exe to a folder in your PATH (e.g., C:\Program Files\helm\).
+
+2️⃣ Add Helm to PATH
+If you installed manually:
+
+Press Win + R, type:
+
+Copy
+Edit
+sysdm.cpl
+and hit Enter.
+
+Go to Advanced → Environment Variables.
+
+Under System variables, find and edit Path.
+
+Add the folder where helm.exe is stored (e.g., C:\Program Files\helm\).
+
+Click OK and restart your terminal.
+
+3️⃣ Verify installation
+After installation, check:
+
+powershell
+Copy
+Edit
+helm version
+You should see something like:
+
+css
+Copy
+Edit
+version.BuildInfo{Version:"v3.x.x", ...}
+
+
 kubectl get pods -n kube-system
   2: kubectl get deploy -n kube-system
   3: kubectl get pods -n kube-system
   4: kubectl get ingress -n game-2048
-  
   
 In powershell
   
