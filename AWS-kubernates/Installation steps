@@ -32,7 +32,7 @@ Append or prepend the kubectl binary folder to your PATH environment variable.
 Test to ensure the version of kubectl is the same as downloaded:
 kubectl version --client
 
-Install eksctl steps on windows
+*****************Install eksctl steps on windows***********************
 Manual Download (Intel/AMD 64-bit)
 Download the binary
  Visit:
@@ -45,22 +45,11 @@ Extract it
 
 Unzip the file (you’ll get eksctl.exe).
 
-
 Move to a permanent location
-
-
 Example: C:\eksctl\eksctl.exe
-
-
 Add to PATH
-
-
 Search "Edit the system environment variables"
-
-
 Click Environment Variables
-
-
 Under System variables, find Path, click Edit, New, and add:
 
  makefile
@@ -69,14 +58,12 @@ C:\eksctl
 
 Click OK to save.
 
-
 5. Verify installation
  Open a new PowerShell and run:
 
- powershell
+powershell
 CopyEdit
 eksctl version
-
 
 ✅ Security Tip (ties to your earlier checksum/signature question):
  When you download eksctl, also download the .sha256 checksum file from the same release page.
@@ -90,20 +77,20 @@ Get-FileHash eksctl.exe -Algorithm SHA256
 
 Compare the hash with the official one to ensure it’s not tampered with.
 
-
+**************Create the ALB *************************
 
 eksctl create fargateprofile --cluster demo-cluster --region us-east-1 --name alb-sample-app --namespace game-2048
 
-
+*************Add the application code to kubernates ***************
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.5.4/docs/examples/2048/2048_full.yaml
 
-
+*************Assigne the iam role to communicate*******************
 eksctl utils associate-iam-oidc-provider --cluster demo-cluster --approve
 
-
+*************Assigne the iam policy to communicat*****************
 aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam_policy.json
 
-
+****************Create the service account ************************
 eksctl create iamserviceaccount --cluster=demo-cluster --namespace=kube-system --name=aws-load-balancer-controller --role-name AmazonEKSLoadBalancerControllerRole --attach-policy-arn=arn:aws:iam::581018137762:policy/AWSLoadBalancerControllerIAMPolicy --approve
 
 
